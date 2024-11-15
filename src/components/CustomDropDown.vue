@@ -1,6 +1,6 @@
 <template>
     <div class="relative w-full">
-        <div class="border rounded-md p-3 cursor-pointer bg-white" @click="toggleDropdown"
+        <div class="border rounded-3xl p-3 cursor-pointer bg-gray-50" @click="toggleDropdown"
             :class="dropdownInputBgColor">
             <span>{{ selectedOption ? selectedOption : 'Select' }}</span>
             <Icon class="float-right" icon="mingcute:down-line" width="1.5em" height="1.5em" />
@@ -27,12 +27,17 @@ export default {
             isOpen: false,
             selectedOption: null,
             // Dummy data for options
-            options: ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5'],
+            // options: ['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5'],
             // Customizable class names for different background colors
             dropdownInputBgColor: 'bg-white', // Change this to customize input background color
             dropdownListBgColor: 'bg-white', // Change this to customize list background color
             dropdownTextColor: 'text-black', // Change this to customize text color
         };
+    },
+    props:{
+        options:{
+            
+        }
     },
     components: {
         Icon

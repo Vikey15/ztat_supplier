@@ -1,13 +1,13 @@
 <template>
-  <div :class="`${rtlClass} p-4 h-screen space-y-10`">
+  <div :class="`${rtlClass} p-4 h-screen space-y-5`">
     <div class="flex justify-start items-center">
       <CustomFlagDropDown />
     </div>
 
 
     <div class="flex justify-center">
-      <div class="flex flex-col w-full max-w-lg   border-gray-300 border-2 rounded-2xl shadow-xl">
-        <div class="flex justify-center mx-auto">
+      <div class="flex flex-col w-full max-w-lg border-gray-300 border-2 rounded-2xl shadow-xl">
+        <div class="flex justify-center">
           <img v-if="$i18n.locale === 'en'" src="../assets/images/logoEngPrimary.png" alt="brandLogo"
             class="h-32 w-32" />
           <img v-if="$i18n.locale === 'ar'" src="../assets/images/logoArbPrimary.png" alt="brandLogo"
@@ -15,45 +15,22 @@
 
         </div>
 
-        <div class="mx-auto flex justify-center">
+        <div class="flex justify-center">
           <h3 class=" text-gray-600 dark:text-gray-400 text-lg "> {{ $t('enterUsernameAndPass') }}</h3>
         </div>
         <div class="mx-8 mt-3">
-          <label class="text-gray-800 text-lg block">{{ $t('email') }}</label>
           <div class="relative flex items-center">
             <input v-model="email" name="email" type="text" required :id="LoginPageIds.emailInput"
-              class="w-full text-sm border-b border-gray-300 focus:border-gray-800 px-2 py-3 outline-none"
+              class="w-full p-3 text-gray-600 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark"
               :placeholder="$t('enterEmail')" />
-            <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" :class="[
-              'w-[18px]',
-              'h-[18px]',
-              'absolute',
-              $i18n.locale === 'ar' ? 'left-2' : 'right-2',
-              'cursor-pointer'
-            ]" viewBox="0 0 682.667 682.667">
-              <defs>
-                <clipPath id="a" clipPathUnits="userSpaceOnUse">
-                  <path d="M0 512h512V0H0Z" data-original="#000000"></path>
-                </clipPath>
-              </defs>
-              <g clip-path="url(#a)" transform="matrix(1.33 0 0 -1.33 0 682.667)">
-                <path fill="none" stroke-miterlimit="10" stroke-width="40"
-                  d="M452 444H60c-22.091 0-40-17.909-40-40v-39.446l212.127-157.782c14.17-10.54 33.576-10.54 47.746 0L492 364.554V404c0 22.091-17.909 40-40 40Z"
-                  data-original="#000000"></path>
-                <path
-                  d="M472 274.9V107.999c0-11.027-8.972-20-20-20H60c-11.028 0-20 8.973-20 20V274.9L0 304.652V107.999c0-33.084 26.916-60 60-60h392c33.084 0 60 26.916 60 60v196.653Z"
-                  data-original="#000000"></path>
-              </g>
-            </svg>
           </div>
         </div>
 
         <div class="mx-8 mt-3">
-          <label class="text-gray-800 text-lg block">{{ $t('password') }}</label>
           <div class="relative flex items-center">
             <input :id='LoginPageIds.passwordInput' v-model="password" name="password"
               :type="passwordVisibility ? 'text' : 'password'" required
-              class="w-full text-sm border-b border-gray-300 focus:border-gray-800 px-2 py-3 outline-none"
+              class="w-full p-3 text-gray-600 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark"
               :placeholder="$t('enterPassword')" />
             <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" :class="[
               'w-[18px]',
@@ -206,7 +183,7 @@ export default {
           }
         }
         const response = await this.initiateLogin(request);
-        this.$router.replace({ name: 'products' });
+        this.$router.replace({ name: 'dashboard' });
         // if (response.header.responseCode === LOGIN_RESPONSE_SUCCESS_CODE) {
         //   // document.cookie = `sessionToken=${response.data.token}; path=/; SameSite=Strict;`;
         //   this.$router.replace({ name: 'home' });

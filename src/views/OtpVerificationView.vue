@@ -1,10 +1,10 @@
 <template>
-    <div :class="`${rtlClass} p-4 space-y-10`">
+    <div :class="`${rtlClass} p-4 h-screen space-y-5`">
         <div class="flex justify-start items-center">
       <CustomFlagDropDown />
     </div>
       <div class="flex justify-center">
-        <div class="max-w-md mx-auto text-center bg-white px-4 sm:px-8 py-4 rounded-xl shadow-lg dark:bg-gray-800 dark:border-gray-700 border-2">
+        <div class=" bg-white rounded-xl shadow-lg dark:bg-gray-800 dark:border-gray-700 border-2">
           <header>
             <div class="flex justify-center mx-auto">
           <img v-if="$i18n.locale === 'en'" src="../assets/images/logoEngPrimary.png" alt="brandLogo"
@@ -13,10 +13,10 @@
             class="h-32 w-32" />
 
         </div>
-            <h1 class="block text-2xl font-bold text-primary-dark dark:text-white">{{ $t('emailVerification') }}</h1>
-            <p class="flex justify-center m-2 text-lg text-gray-600 dark:text-gray-400">{{ $t('enterCode') }}</p>
+            <h1 class="block text-2xl text-center font-bold text-primary-dark dark:text-white">{{ $t('emailVerification') }}</h1>
+            <p class="flex text-center justify-center m-2 text-lg text-gray-600 dark:text-gray-400">{{ $t('enterCode') }}</p>
           </header>
-          <p class="text-center my-5 font-semibold text-xl">e...e@domain.com</p>
+          <p class="text-center my-3 font-semibold text-xl">e...e@domain.com</p>
           <form @submit.prevent="handleSubmit" ref="otpForm">
             <div class="flex items-center justify-center gap-3">
               <input
@@ -24,7 +24,10 @@
                 v-for="(input, index) in otpInputs"
                 :key="index"
                 type="text"
-                class="w-14 h-14 text-center text-2xl font-extrabold text-slate-900 bg-slate-100 border border-transparent hover:border-slate-200 appearance-none rounded p-4 outline-none focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
+                class="w-14 h-14 text-center text-2xl 
+                font-extrabold text-slate-900 bg-slate-100 border border-transparent
+                 hover:border-slate-200 appearance-none rounded-2xl p-4 outline-none
+                  focus:bg-white focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
                 maxlength="1"
                 v-model="otpInputs[index]"
                 @input="handleInput(index)"
@@ -39,7 +42,7 @@
             <a class="mx-2 text-primary-dark decoration-2 hover:underline font-medium">
                 {{ $t('resend') }}</a>
           </p>
-            <div class="max-w-[260px] mx-auto mt-4">
+            <div class="max-w-[260px] mx-auto m-4">
               <button ref="submitButton" type="submit" :id="OtpVerificationIds.otpVerifyBtn"
                       class="w-full py-3 px-6 text-xl font-bold tracking-wider 
                              rounded-full text-white bg-button-dark hover:bg-button-darkHover
@@ -64,7 +67,7 @@ import { OtpVerificationIds } from '../automationTestingIds';
   export default {
     data() {
       return {
-        otpInputs: ['', '', '', ''] ,
+        otpInputs: ['-', '-', '-', '-'] ,
         alertvisibility: false,
       alertMessage: "",
       alertDescription: "",

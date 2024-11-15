@@ -21,12 +21,10 @@
             <form>
               <div class="grid gap-y-4">
                 <div>
-                  <label class="text-gray-800 text-lg block mb-2">{{ $t('newPassword') }}</label>
-
                   <div class="relative flex items-center">
                     <input :id="PasswordResetIds.newPassword" v-model="password" name="password"
                       :type="this.passwordVisibility ? 'text' : 'password'" required
-                      class="w-full text-sm border-b border-gray-300 focus:border-gray-800 px-2 py-3 outline-none"
+                      class="w-full p-3 text-gray-600 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark"
                       :placeholder="$t('enterNewPassword')" />
                     <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb"
                       :id="PasswordResetIds.newPassToggle" :class="[
@@ -46,11 +44,10 @@
                                     complies with the rules to ensure security</p> -->
                 </div>
                 <div>
-                  <label class="text-gray-800 text-lg block mb-2">{{ $t('confirmNewPassword') }}</label>
                   <div class="relative flex items-center">
                     <input :id="PasswordResetIds.confirmPassword" v-model="confirmPassword" name="password"
                       :type="this.passwordVisibility ? 'text' : 'password'" required
-                      class="w-full text-sm border-b border-gray-300 focus:border-gray-800 px-2 py-3 outline-none"
+                      class="w-full p-3 text-gray-600 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark"
                       :placeholder="$t('enterNewPassword')" />
                     <svg xmlns="http://www.w3.org/2000/svg" fill="#bbb" stroke="#bbb" :class="[
                       'w-[18px]',

@@ -1,5 +1,5 @@
 <template>
-    <div class="p-2 mt-2 flex bg-white rounded-3xl mx-3 items-center justify-between">
+    <div class="p-2 flex bg-white items-center justify-between">
       <div class="flex justify-center items-center m-1">
       <button 
         @click="toggleSideMenu" 

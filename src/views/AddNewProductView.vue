@@ -1,10 +1,9 @@
 <template>
-    <div class="min-h-screen flex flex-row bg-gray-100 ">
+    <div class="min-h-screen flex flex-row bg-gray-50 ">
         <SideMenuNew :is-active="sideMenu"/>
         <div :class="['flex-col','flex-grow']">
             <TopNav @sideMenu-visibility="handleUpdateBoolean" />
-            <div class="mx-3 mt-3 p-2 bg-white rounded-3xl">
-
+            <div class="m-3">
                 <div class="flex justify-between items-center m-3">
                     <p class="text-center text-2xl text-gray-600 dark:text-gray-400 m-1 font-extrabold">Add New Product
                     </p>
@@ -19,7 +18,7 @@
                 </div>
 
                 <div
-                    class="bg-gray-100  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-5 p-10 mx-auto rounded-3xl">
+                    class="bg-white grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-5 p-10 mx-auto rounded-3xl">
                     <div class="flex flex-col space-y-2">
                         <label class="text-gray-600 font-bold">Category</label>
                         <CustomDropDown />
@@ -39,7 +38,7 @@
                     </div>
                 </div>
 
-                <div class="bg-gray-100 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 
+                <div class="bg-white grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 
                 gap-5 mt-5 p-10 mx-auto rounded-3xl">
                     <div class="flex flex-col space-y-2">
                         <label class="text-gray-600 font-bold">Product Name</label>
@@ -47,7 +46,7 @@
                     </div>
                     <div class="flex flex-col space-y-2">
                         <label class="text-gray-600 font-bold">Product Code</label>
-                        <input class="w-full p-3 text-gray-600 bg-white border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
+                        <input class="w-full p-3 text-gray-600 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
                     </div>
                     <div class="flex flex-col space-y-2">
                         <label class="text-gray-600 font-bold">Brand Name</label>
@@ -55,7 +54,7 @@
                     </div>
                     <div class="flex flex-col space-y-2">
                         <label class="text-gray-600 font-bold">Model Name</label>
-                        <input class="w-full p-3 text-gray-600 bg-white border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
+                        <input class="w-full p-3 text-gray-600 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
                     </div>
                 </div>
 
@@ -63,34 +62,34 @@
                     class="grid grid-cols-1 sm:grid-cols-2 sm:space-x-5 md:grid-cols-2 md:space-x-5 lg:grid-cols-2 lg:space-x-5">
 
                     <div class="flex flex-col">
-                    <div class="bg-gray-100 grid grid-cols-1 gap-5 mt-5 p-10 rounded-3xl">
+                    <div class="bg-white grid grid-cols-1 gap-5 mt-5 p-10 rounded-3xl">
                         <div class="flex flex-col space-y-2">
                             <label class="text-gray-600 font-bold">UOM</label>
                             <CustomDropDown />
-                            <input class="w-full p-3 text-gray-600 bg-white border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
+                            <input class="w-full p-3 text-gray-600 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
                         </div>
                         <div class="flex flex-col space-y-2">
                             <label class="text-gray-600 font-bold">Price</label>
-                            <input class="w-full p-3 text-gray-600 bg-white border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
+                            <input class="w-full p-3 text-gray-600 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
                         </div>
                         <div class="flex flex-col space-y-2">
                             <label class="text-gray-600 font-bold">Minimum Order Quantity</label>
-                        <input class="w-full p-3 text-gray-600 bg-white border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
+                        <input class="w-full p-3 text-gray-600 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
                         </div>
                         <div class="flex flex-col space-y-2">
                             <label class="text-gray-600 font-bold">Expected Delivery Days</label>
-                            <input class="w-full p-3 text-gray-600 bg-white border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
+                            <input class="w-full p-3 text-gray-600 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
                         </div>
                     </div>
 
-                    <div class="bg-gray-100 grid grid-cols-1 gap-5 mt-5 p-10 rounded-3xl">
+                    <div class="bg-white grid grid-cols-1 gap-5 mt-5 p-10 rounded-3xl">
                     
                     <div class="flex flex-col space-y-2">
                         <label class="text-gray-600 font-bold">Tags</label>
 
                         <div class="relative">
                             <input v-model="newTag" type="text"
-                            class="w-full p-3 text-gray-600 bg-white border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
+                            class="w-full p-3 text-gray-600 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
                             <button @click="addTag"
                                 class="absolute p-1 right-5 top-2 text-primary-dark border border-primary-dark rounded-lg font-semibold">
                                 + Add
@@ -114,7 +113,7 @@
                             <p class="text-right text-gray-500">{{ description.length }}/2000</p>
                         </div>
                         <textarea v-model="description" rows="4" maxlength="2000"
-                        class="w-full p-3 text-gray-600 bg-white border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-dark"></textarea>
+                        class="w-full p-3 text-gray-600 bg-gray-50 border border-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-dark"></textarea>
                     </div>
 
                     <div class="flex flex-col space-y-2 mt-2">
@@ -216,7 +215,7 @@
                     </div>
                 </div> 
 
-                    <div class="bg-gray-100 grid grid-cols-1 
+                    <div class="bg-white grid grid-cols-1 
                 gap-5 mt-5 p-10 rounded-3xl">
                         <div class="flex flex-col  space-y-2">
                             <label class="text-gray-600 font-bold">Product Information</label>
@@ -236,7 +235,7 @@
                         </div>
                         <div class="flex flex-col  space-y-2">
                             <label class="text-gray-600 font-bold">Added Preservations</label>
-                        <input class="w-full p-3 text-gray-600 bg-white border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
+                        <input class="w-full p-3 text-gray-600 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
                     </div>
                         <div class="flex flex-col  space-y-2">
                             <label class="text-gray-600 font-bold">Maximum Shelf Life</label>
@@ -244,19 +243,19 @@
                         </div>
                         <div class="flex flex-col  space-y-2">
                             <label class="text-gray-600 font-bold">Calorie Value</label>
-                        <input class="w-full p-3 text-gray-600 bg-white border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
+                        <input class="w-full p-3 text-gray-600 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
                     </div>
                         <div class="flex flex-col  space-y-2">
                             <label class="text-gray-600 font-bold">Organic</label>
-                            <input class="w-full p-3 text-gray-600 bg-white border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
+                            <input class="w-full p-3 text-gray-600 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
                         </div>
                         <div class="flex flex-col  space-y-2">
                             <label class="text-gray-600 font-bold">Manufactured By</label>
-                            <input class="w-full p-3 text-gray-600 bg-white border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
+                            <input class="w-full p-3 text-gray-600 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
                         </div>
                         <div class="flex flex-col  space-y-2">
                             <label class="text-gray-600 font-bold">Model Number</label>
-                            <input class="w-full p-3 text-gray-600 bg-white border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
+                            <input class="w-full p-3 text-gray-600 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-dark" />
                         </div>
                     </div>
 
