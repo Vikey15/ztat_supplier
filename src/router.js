@@ -58,6 +58,11 @@ export const routes = [
     name: 'profile',
     component: () => import('./views/ProfileView.vue'), // Lazy loading
   },
+  {
+    path: '/return-details',
+    name:'returnDetails',
+    component:() => import('./views/ReturnDetailsView.vue'),
+  }
 ];
 
 const router = createRouter({
