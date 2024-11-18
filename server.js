@@ -1,57 +1,100 @@
-import express from 'express';
-import { createSSRApp } from 'vue';
-import router from './src/router.js'; // Import default router
-import { renderToString } from 'vue/server-renderer';
-import { createServer } from 'vite';
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import express from "express";
 
-const app = express();
 
-const startServer = async () => {
-  const vite = await createServer({
-    server: { middlewareMode: 'ssr' }, // Use SSR middleware mode
-  });
+const isTest = process.env.VITEST;
 
-  // Use Vite's connect instance as middleware
-  app.use(vite.middlewares);
+export async function createServer(
+  root = process.cwd(),
+  isProd = process.env.NODE_ENV === "production",
+  hmrPort
+) {
+  const __dirname = path.dirname(fileURLToPath(import.meta.url));
+  const resolve = (p) => path.resolve(__dirname, p);
 
-  app.get('*', async (req, res) => {
+  const indexProd = isProd
+    ? fs.readFileSync(resolve("dist/client/index.html"), "utf-8")
+    : "";
+
+  const manifest = isProd
+    ? JSON.parse(
+        fs.readFileSync(resolve("dist/client/ssr-manifest.json"), "utf-8")
+      )
+    : {};
+
+  const app = express();
+
+  /**
+   * @type {import('vite').ViteDevServer}
+   */
+  let vite;
+  if (!isProd) {
+    vite = await (
+      await import("vite")
+    ).createServer({
+      base: "/",
+      root,
+      logLevel: isTest ? "error" : "info",
+      server: {
+        middlewareMode: true,
+        watch: {
+          usePolling: true,
+          interval: 100,
+        },
+        hmr: {
+          port: hmrPort,
+        },
+      },
+      appType: "custom",
+    });
+    app.use(vite.middlewares);
+  } else {
+    app.use((await import("compression")).default());
+    app.use(
+      "/",
+      (await import("serve-static")).default(resolve("dist/client"), {
+        index: false,
+      })
+    );
+  }
+
+  app.use("*", async (req, res) => {
     try {
-      const { default: App } = await vite.ssrLoadModule('/src/App.vue');
+      const url = req.originalUrl;
 
-      const ssrApp = createSSRApp(App);
-      ssrApp.use(router); // Use the default exported router
+      let template, render;
+      if (!isProd) {
+        template = fs.readFileSync(resolve("index.html"), "utf-8");
+        template = await vite.transformIndexHtml(url, template);
+        render = (await vite.ssrLoadModule("/src/entry-server.js")).render;
+      } else {
+        template = indexProd;
+        render = (await import("./dist/server/entry-server.js")).render;
+      }
 
-      await router.push(req.url);
-      await router.isReady();
+      const [appHtml, preloadLinks] = await render(url, manifest);
 
-      const html = await renderToString(ssrApp);
+      const html = template
+        .replace(`<!--preload-links-->`, preloadLinks)
+        .replace(`<!--app-html-->`, appHtml);
 
-      const template = await vite.transformIndexHtml(req.url, `
-        <!DOCTYPE html>
-        <html lang="en">
-          <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>SSR Vue App</title>
-          </head>
-          <body>
-            <div id="app">${html}</div>
-          </body>
-        </html>
-      `);
-
-      res.status(200).send(template);
-    } catch (error) {
-      vite.ssrFixStacktrace(error);
-      console.error('SSR Error:', error);
-      res.status(500).send('Internal Server Error');
+      res.status(200).set({ "Content-Type": "text/html" }).end(html);
+    } catch (e) {
+      vite && vite.ssrFixStacktrace(e);
+      console.log(e.stack);
+      res.status(500).end(e.stack);
     }
   });
 
-  const PORT = 3000;
-  app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-  });
-};
+  return { app, vite };
+}
 
-startServer();
+if (!isTest) {
+  createServer().then(({ app }) =>
+    app.listen(4000, () => {
+      console.log("http://localhost:4000");
+    })
+  );
+}

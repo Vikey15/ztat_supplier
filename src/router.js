@@ -1,8 +1,10 @@
-import { createRouter, createMemoryHistory, createWebHashHistory } from 'vue-router';
+import {
+  createMemoryHistory,
+  createRouter as _createRouter,
+  createWebHistory,
+} from "vue-router";
 
-const isServer = typeof window === 'undefined';
-
-export const routes = [
+const routes = [
   {
     path: '/',
     name: 'login',
@@ -62,13 +64,19 @@ export const routes = [
     path: '/return-details',
     name:'returnDetails',
     component:() => import('./views/ReturnDetailsView.vue'),
+  },
+  {
+    path: '/order-details',
+    name: 'orderDetails',
+    component: () => import('./views/OrderDetailsView.vue'), // Lazy loading
   }
 ];
 
-const router = createRouter({
-  // Use createMemoryHistory for SSR, and createWebHistory for the browser
-  history: isServer ? createMemoryHistory() : createWebHashHistory(),
-  routes,
-});
+export const createRouter = () =>
+  _createRouter({
+    history: import.meta.env.SSR
+      ? createMemoryHistory("/")
+      : createWebHistory("/"),
+    routes,
+  });
 
-export default router;

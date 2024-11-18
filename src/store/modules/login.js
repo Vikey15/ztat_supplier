@@ -6,20 +6,22 @@ const state = {
   
   const mutations = {
     setLoginResponse(state, loginResponse) {
+      console.log(loginResponse,"mutations")
       state.loginResponse = loginResponse;
     },
   };
   
   const actions = {
     async initiateLogin({ commit }, request) {
-       axios.post('/ecommerce-api/bo/auth', request, {
+       axios.post('/ecommerce-api/bo/loginAuthentication', request, {
         headers: {
           "Content-Type": "text/plain",
         },
       }).then((response) => {
         if (response) {
+          console.log(response,"actions")
           commit('setLoginResponse', response);
-          return true;
+          return response
         }
       })
         .catch((error) => {
@@ -31,6 +33,7 @@ const state = {
   
   const getters = {
     loginResponse(state) {
+      console.log(state,"getters")
       return state.loginResponse;
     },
   };

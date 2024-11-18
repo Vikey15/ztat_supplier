@@ -72,12 +72,11 @@
 
 <script>
 import { LoginPageIds } from '../automationTestingIds';
-import { mapState, mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { Icon } from '@iconify/vue';
 import CustomFlagDropDown from '../components/CustomFlagDropDown.vue';
 import AlertModal from '../components/modals/AlertModal.vue';
 import { LOGIN_RESPONSE_SUCCESS_CODE } from '../constants';
-import { vModelCheckbox } from 'vue';
 export default {
   name: "LoginView",
   data() {
@@ -91,7 +90,8 @@ export default {
       alertvisibility: false,
       alertMessage: "",
       alertDescription: "",
-      alertSeverity: ""
+      alertSeverity: "",
+
 
     }
   },
@@ -148,56 +148,52 @@ export default {
             this.alertvisibility = false;
           }, 2000);
     }
-    // else if(!verifyPassword)
-    // {
-    //   this.alertvisibility = true,
-    //       this.alertMessage = this.$t('error');
-    //       this.alertDescription = this.$t('enterValidPassword');
-    //       this.alertSeverity = "error",
-    //       setTimeout(() => {
-    //         this.alertvisibility = false;
-    //       }, 2000);
-    // }
+    else if(!verifyPassword)
+    {
+      this.alertvisibility = true,
+          this.alertMessage = this.$t('error');
+          this.alertDescription = this.$t('enterValidPassword');
+          this.alertSeverity = "error",
+          setTimeout(() => {
+            this.alertvisibility = false;
+          }, 2000);
+    }
       else if (verifyEmail ) {
         const request = {
-          "request": {
-            "envelope": {
-              "sourceApplication": "sourceApplication",
-              "requestDate": "2021-01-06T11:58:10.775",
-              "sourceRequestId": "sourceRequestId",
-              "additionalSource1": "additionalSource1",
-              "additionalSource2": "additionalSource2",
-              "additionalReference1": "additionalReference1",
-              "additionalReference2": "additionalReference2"
-            },
-            "content": {
-              "bo_data": {
+    "request":{
+        "envelope": {
+            "sourceApplication" : "Afforde UI",
+            "requestDate" : "2024-11-18 23:23:34"
+        },
+        "content":{
+            "bo_data": {
                 "type": "login",
                 "loginId": this.email,
                 "password": this.password,
-                "domain": "www.abc.com",
-                "channelTypeId": "2",
-                "gcmTokenId": "null"
-              }
+                "domain": "www.thebramha.com"
             }
-          }
         }
-        const response = await this.initiateLogin(request);
-        this.$router.replace({ name: 'dashboard' });
-        // if (response.header.responseCode === LOGIN_RESPONSE_SUCCESS_CODE) {
-        //   // document.cookie = `sessionToken=${response.data.token}; path=/; SameSite=Strict;`;
-        //   this.$router.replace({ name: 'home' });
-        // }
-        // else{
-        //   this.alertvisibility = true,
-        //   this.alertMessage = this.$t('error');
-        //   this.alertDescription = this.$t('incorrectCredentials');
-        //   this.alertSeverity = "error",
-        //   setTimeout(() => {
-        //     this.alertvisibility = false;
-        //   }, 2000);
-        // console.log("credentials are not valid")
-        // }
+    }
+}
+
+try{
+  const response = await this.initiateLogin(request);
+        if (response?.header.responseCode === LOGIN_RESPONSE_SUCCESS_CODE) {
+          // document.cookie = `sessionToken=${response.data.token}; path=/; SameSite=Strict;`;
+          this.$router.replace({ name: 'dashboard' });
+        }
+}
+       
+        catch{
+          this.alertvisibility = true,
+          this.alertMessage = this.$t('error');
+          this.alertDescription = this.$t('incorrectCredentials');
+          this.alertSeverity = "error",
+          setTimeout(() => {
+            this.alertvisibility = false;
+          }, 2000);
+        console.log("credentials are not valid")
+        }
       }
 
     },
@@ -206,6 +202,7 @@ export default {
       this.$i18n.locale = this.selectedLanguage
     }
   },
+
 }
 </script>
 
